@@ -11,6 +11,10 @@
   - type of runways (as indicated in "surface" column) per country
   - bonus: print the top 10 most common runway identifications (indicated in "le_ident" column)
 
+## Notes
+
+- the last change from http://ourairports.com/data/ is from 2009
+
 ## Decisions
 
 ## Status
