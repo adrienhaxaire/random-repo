@@ -29,3 +29,11 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/target/test-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
     - sbt dist
+
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: random-repo
+
+      
