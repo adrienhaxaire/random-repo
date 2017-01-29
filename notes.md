@@ -20,7 +20,7 @@
     - then copy-paste the csv lines after the first one into the sql file
     - replace all single quotes with two single quotes, to escape them in postgres
     - run this regexp on the lines: `[0-9]+,"\([0-9A-Za-z-_]+\)","[a-zA-Z_ ]+","\(.*\)",\([0-9\.-]+\),\([0-9\.-]+\),["NA0-9-]*,"[A-Z- ]+","\([A-Z]+\)","[A-Z0-9-]+",.*` to `insert into airports(faa, name, latitude, longitude, country_code) values ('\1', '\2', \3, \4, '\5');`
-
+- had to use pagination as some countries have a lot of airports, like the US who have 21501 in this data set
 
 ## Ideas
 
@@ -28,4 +28,4 @@
 - link the latitude and longitude to Google Maps
 - use interactive graphs in the report
 - provide length and width for the runways
-
+- search for an airport
