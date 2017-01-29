@@ -8,11 +8,11 @@ import models.Runway
 
 class AirportController @Inject() extends Controller {
 
-  def byCountryCode(countryCode: String) = Action { implicit request =>
+  def byCountryCode(countryCode: String, page: Int) = Action { implicit request =>
 
     if (countryCode.toLowerCase == countryCode) {
 
-      val airports = Airport.byCountryCode(countryCode)
+      val airports = Airport.byCountryCode(countryCode, page)
       val runways = airports.map(airport => Runway.byFAA(airport.faa)).flatten
 
       Ok(views.html.airports(airports, runways))

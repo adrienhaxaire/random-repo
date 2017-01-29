@@ -11,8 +11,12 @@ case class Airport (faa: String, name: String, latitude: Double, longitude: Doub
 
 object Airport {
 
-  def byCountryCode(code: String): List[Airport] = {
-    val sql: SqlQuery = SQL("select * from airports where country_code = '" + code.toUpperCase + "';")
+  def byCountryCode(code: String, page: Int): List[Airport] = {
+    val pagination = 50
+    val offset = (page - 1) * pagination
+    val sql: SqlQuery =
+      SQL("select * from airports where country_code = '" + code.toUpperCase
+        + "' LIMIT " + pagination + " OFFSET " + offset + ";")
     DB.withConnection { implicit connection =>
       sql().map(row =>
         Airport(row[String]("faa"),
