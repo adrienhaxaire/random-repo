@@ -1,12 +1,11 @@
 package controllers
 
 import javax.inject._
-import play.api.mvc._
+import play.api.mvc.{Controller, Action}
 
 import models.Airport
 import models.Runway
 
-@Singleton
 class AirportController @Inject() extends Controller {
 
   def byCountryCode(countryCode: String) = Action { implicit request =>
@@ -22,5 +21,6 @@ class AirportController @Inject() extends Controller {
       Redirect(routes.AirportController.byCountryCode(countryCode.toLowerCase))
     }
   }
+
 }
 
