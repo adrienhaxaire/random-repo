@@ -1,9 +1,12 @@
-@(airports: List[Airport])
+@(airports: List[Airport], runways: List[Runway])
 
 @main("Airports") {
   <dl class="airports">
-  @for(airport <- airports) {
-     <dt>@airport.name (@airport.latitude, @airport.longitude)</dt>
-  }
+    @for(airport <- airports) {
+      <dt>@airport.name (@airport.latitude, @airport.longitude)</dt>
+        @for(runway <- runways.filter(_.faa == airport.faa)) {
+          <dd>@runway.common_identification, @runway.surface</dd>
+        }
+     }
   </dl>
 }

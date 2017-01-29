@@ -5,6 +5,8 @@ import play.api.db.DB
 import anorm.SQL
 import anorm.SqlQuery
 
+import models.Runway
+
 case class Airport (faa: String, name: String, latitude: Double, longitude: Double, countryCode: String)
 
 object Airport {
