@@ -14,7 +14,7 @@
 ## Notes
 
 - the last change from http://ourairports.com/data/ is from 2009
-
+- a build on Circle CI takes 5 minutes, total build and deployment time around 12 I guess
 - to convert airports.csv into a sql script:
     - the first line is the table creation: `create table airports (faa text unique not null, name text not null, latitude double precision not null, longitude double precision not null, country_code text, primary key (faa));`
     - then copy-paste the csv lines after the first one into the sql file
