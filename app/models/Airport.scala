@@ -5,7 +5,7 @@ import play.api.db.DB
 import anorm.SQL
 import anorm.SqlQuery
 
-case class Airport (ident: String, name: String, municipality: String, countryCode: String)
+case class Airport (faa: String, name: String, latitude: Double, longitude: Double, countryCode: String)
 
 object Airport {
 
@@ -13,9 +13,10 @@ object Airport {
     val sql: SqlQuery = SQL("select * from airports")
     DB.withConnection { implicit connection =>
       sql().map(row =>
-        Airport(row[String]("ident"),
+        Airport(row[String]("faa"),
           row[String]("name"),
-          row[String]("municipality"),
+          row[Double]("latitude"),
+          row[Double]("longitude"),
           row[String]("country_code"))).toList}
   }
 

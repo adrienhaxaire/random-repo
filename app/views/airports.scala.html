@@ -3,7 +3,7 @@
 @main("Airports") {
   <dl class="airports">
   @for(airport <- airports) {
-     <dt>@airport.name (@airport.municipality)</dt>
+     <dt>@airport.name (@airport.latitude, @airport.longitude)</dt>
   }
   </dl>
 }
