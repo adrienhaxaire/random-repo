@@ -1,0 +1,9 @@
+@(airports: List[Airport])
+
+@main("Airports") {
+  <dl class="airports">
+  @for(airport <- airports) {
+     <dt>@airport.name (@airport.municipality)</dt>
+  }
+  </dl>
+}
