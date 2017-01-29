@@ -10,10 +10,17 @@ import models.Runway
 class AirportController @Inject() extends Controller {
 
   def byCountryCode(countryCode: String) = Action { implicit request =>
-    val airports = Airport.byCountryCode(countryCode)
-    val runways = airports.map(airport => Runway.byFAA(airport.faa)).flatten
 
-    Ok(views.html.airports(airports, runways))
+    if (countryCode.toLowerCase == countryCode) {
+
+      val airports = Airport.byCountryCode(countryCode)
+      val runways = airports.map(airport => Runway.byFAA(airport.faa)).flatten
+
+      Ok(views.html.airports(airports, runways))
+
+    } else {
+      Redirect(routes.AirportController.byCountryCode(countryCode.toLowerCase))
+    }
   }
 }
 
