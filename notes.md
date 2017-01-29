@@ -15,6 +15,12 @@
 
 - the last change from http://ourairports.com/data/ is from 2009
 
+- to convert airports.csv into a sql script:
+    - the first line is the table creation: `create table airports (faa text unique not null, name text not null, latitude double precision not null, longitude double precision not null, country_code text, primary key (faa));`
+    - then copy-paste the csv lines after the first one into the sql file
+    - replace all single quotes with two single quotes, to escape them in postgres
+    - run this regexp on the lines: `[0-9]+,"\([0-9A-Za-z-_]+\)","[a-zA-Z_ ]+","\(.*\)",\([0-9\.-]+\),\([0-9\.-]+\),["NA0-9-]*,"[A-Z- ]+","\([A-Z]+\)","[A-Z0-9-]+",.*` to `insert into airports(faa, name, latitude, longitude, country_code) values ('\1', '\2', \3, \4, '\5');`
+
 ## Decisions
 
 ## Status
