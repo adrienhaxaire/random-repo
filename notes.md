@@ -21,11 +21,11 @@
     - replace all single quotes with two single quotes, to escape them in postgres
     - run this regexp on the lines: `[0-9]+,"\([0-9A-Za-z-_]+\)","[a-zA-Z_ ]+","\(.*\)",\([0-9\.-]+\),\([0-9\.-]+\),["NA0-9-]*,"[A-Z- ]+","\([A-Z]+\)","[A-Z0-9-]+",.*` to `insert into airports(faa, name, latitude, longitude, country_code) values ('\1', '\2', \3, \4, '\5');`
 
-## Decisions
-
-## Status
 
 ## Ideas
 
-
+- provide a REST API
+- link the latitude and longitude to Google Maps
+- use interactive graphs in the report
+- provide length and width for the runways
 
