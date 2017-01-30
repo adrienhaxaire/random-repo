@@ -21,11 +21,36 @@ class ReportController @Inject() extends Controller {
       sql().map(row => (row[String]("name"), row[Int]("cnt"))).toList}
   }
 
+  private def runwayTypes(countryCode: String): List[String] = {
+    val sql: SqlQuery = SQL("""select distinct r.surface from runways r 
+                               join airports a on r.faa=a.faa 
+                               join countries c on a.country_code=c.code 
+                               where c.code = '""" + countryCode + "';")
+    DB.withConnection { implicit connection =>
+      sql().map(row => row[String]("surface")).toList}
+  }
+
+  private def countryCodes(): List[String] = {
+    val sql: SqlQuery = SQL("select code from countries;")
+    DB.withConnection { implicit connection =>
+      sql().map(row => row[String]("code")).toList}
+  }
+
+  private def toName(countryCode: String): String = {
+    val sql: SqlQuery = SQL("select name from countries where code='" + countryCode + "';")
+    DB.withConnection { implicit connection =>
+      sql().map(row => row[String]("name")).toList.head}
+  }
+
   def print() = Action { implicit request =>
     val highest = numberOfAirports("desc")
     val lowest = numberOfAirports("asc")
 
-    Ok(views.html.report(highest, lowest))
+    var runwaysPerCountry = scala.collection.mutable.Map[String, List[String]]()
+    for (code <- countryCodes) {
+      runwaysPerCountry(toName(code)) = runwayTypes(code)
+    }
+    Ok(views.html.report(highest, lowest, runwaysPerCountry))
   }
 
 }

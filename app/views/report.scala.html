@@ -1,12 +1,20 @@
-@(highest: List[(String, Int)], lowest: List[(String, Int)])
+@(highest: List[(String, Int)], lowest: List[(String, Int)], runwaysPerCountry: scala.collection.mutable.Map[String, List[String]])
 
 @main("Report") {
   <dl class="report">
     @for(h <- highest) {
       <dt>@h._1, @h._2</dt>
-     }
+    }
     @for(l <- lowest) {
       <dt>@l._1, @l._2</dt>
-     }
+    }
+      @for((country, runways) <- runwaysPerCountry) {
+        <dt>@country<dt>              
+        @for(runway <- runways) {
+          <dd>@runway</dd>
+        }
+      }
+
+      
   </dl>
 }
