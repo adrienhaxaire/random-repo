@@ -1,0 +1,12 @@
+@(highest: List[(String, Int)], lowest: List[(String, Int)])
+
+@main("Report") {
+  <dl class="report">
+    @for(h <- highest) {
+      <dt>@h._1, @h._2</dt>
+     }
+    @for(l <- lowest) {
+      <dt>@l._1, @l._2</dt>
+     }
+  </dl>
+}
