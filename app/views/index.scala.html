@@ -1,5 +1,22 @@
-@()
+@(countryForm: Form[Country])(implicit lang: Lang, request: RequestHeader)
+@import helper._
+@import play.api.Play.current
+@import play.api.i18n.Messages.Implicits._
+
 
 @main("Welcome to Play") {
   <h1>Welcome to Play!</h1>
+
+  @helper.form(action = routes.HomeController.query()) {
+   @helper.CSRF.formField
+   @helper.inputText(countryForm("code"))
+
+    <p><input type="submit"></p>
+  }
+
+  <!-- <form action="..." method="POST"> -->
+  <!--   <input name="country-code"> -->
+  <!--   <input type="submit"> -->
+  <!-- </form> -->
+
 }
