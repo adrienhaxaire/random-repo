@@ -27,7 +27,27 @@ class HomeController @Inject() extends Controller {
 
     newCountryForm.fold(
       hasErrors = {form => Redirect(routes.HomeController.index())},
-      success = {country => Redirect(routes.AirportController.byCountryCode(country.code))})
+      success = {country =>
+
+        if (country.code.length == 2) {
+          if (country.codeExists(country.code)) {
+            Redirect(routes.AirportController.byCountryCode(country.code))
+          } else {
+            Redirect(routes.HomeController.index())
+          }
+        } else {
+          if (country.nameExists(country.code)) {
+            val found = country.fromName(country.code)
+            Redirect(routes.AirportController.byCountryCode(found.code))
+          } else {
+            Redirect(routes.HomeController.index())
+          }
+        }
+      })
   }
+    
+        // cases to deal with:
+        // 2 letters, not found
+        // more than two letters, not found
 
 }
