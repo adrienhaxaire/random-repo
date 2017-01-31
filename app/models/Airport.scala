@@ -14,7 +14,7 @@ object Airport {
     val offset = (page - 1) * pagination
     val sql: SqlQuery =
       SQL("select * from airports where country_code = '" + code.toUpperCase
-        + "' LIMIT " + pagination + " OFFSET " + offset + ";")
+        + "' order by name asc LIMIT " + pagination + " OFFSET " + offset + ";")
     DB.withConnection { implicit connection =>
       sql().map(row =>
         Airport(row[String]("faa"),
