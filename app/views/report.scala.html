@@ -1,25 +1,58 @@
-@(highest: List[(String, Int)],
-lowest: List[(String, Int)],
-countries: List[String],
-runways: List[(String,String)])
+@(highest: List[(String, Int)], lowest: List[(String, Int)], countries: List[String], runways: List[(String,String)])
 
-@main("Report") {
-  <dl class="report">
-    @for(h <- highest) {
-      <dt>@h._1, @h._2</dt>
-    }
-      
-    @for(l <- lowest) {
-      <dt>@l._1, @l._2</dt>
-    }
-      
-    @for(country <- countries) {
-      <dt>@country<dt>              
-      @for(runway <- runways.filter(_._1 == country)) {
-         <dd>@runway._2</dd>
-        }
-      }
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" 
+          href="@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" type="text/css" media="screen" 
+          href="@routes.Assets.versioned("stylesheets/home.css")">
 
+    <title>Report</title>
+
+  </head>
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-3">
+          <!-- Top 10 countries with the highest number of airports -->
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>Top 10</strong>
+            </li>
+            @for(h <- highest) {
+                      <li class="list-group-item">
+                        <span class="badge">@h._2</span>
+                        @h._1
+                      </li>
+                      }
+          </ul>
+        </div>
+      </div>
       
-  </dl>
-}
+      <div class="row">
+        <div class="col-md-3">
+          <!-- Bottom 10 countries with the lowest number of airports -->
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>Bottom 10</strong>
+            </li>
+            @for(l <- lowest) {
+                      <li class="list-group-item">
+                        <span class="badge">@l._2</span>
+                        @l._1
+                      </li>
+                      }
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+    
+  </body>
+</html>
