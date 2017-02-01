@@ -4,8 +4,8 @@
   <dl class="airports">
     @for(airport <- airports) {
       <dt>@airport.name (@airport.latitude, @airport.longitude)</dt>
-        @for(runway <- runways.filter(_.faa == airport.faa)) {
-          <dd>@runway.common_identification, @runway.surface</dd>
+        @for(runway <- runways.filter(_.airport_ident == airport.ident)) {
+          <dd>@runway.le_ident, @runway.surface</dd>
         }
      }
   </dl>

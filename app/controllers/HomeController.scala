@@ -31,14 +31,14 @@ class HomeController @Inject() extends Controller {
 
         if (country.code.length == 2) {
           if (country.codeExists(country.code)) {
-            Redirect(routes.AirportController.byCountryCode(country.code))
+            Redirect(routes.AirportController.byIsoCountry(country.code))
           } else {
             Redirect(routes.HomeController.index())
           }
         } else {
           if (country.nameExists(country.code)) {
             val found = country.fromName(country.code)
-            Redirect(routes.AirportController.byCountryCode(found.code))
+            Redirect(routes.AirportController.byIsoCountry(found.code))
           } else {
             Redirect(routes.HomeController.index())
           }
