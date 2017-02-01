@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" media="screen" 
           href="@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")">
     <link rel="stylesheet" type="text/css" media="screen" 
-          href="@routes.Assets.versioned("stylesheets/home.css")">
+          href="@routes.Assets.versioned("stylesheets/report.css")">
 
     <title>Report</title>
 
@@ -19,40 +19,70 @@
     <div class="container">
 
       <div class="row">
-        <div class="col-md-3">
-          <!-- Top 10 countries with the highest number of airports -->
-          <ul class="list-group">
-            <li class="list-group-item">
-              <strong>Top 10</strong>
-            </li>
-            @for(h <- highest) {
-                      <li class="list-group-item">
-                        <span class="badge">@h._2</span>
-                        @h._1
-                      </li>
-                      }
-          </ul>
+        <div class="col-xs-6">
+
+          <div class="row" id="top10">
+            <div class="col-md-6">
+              <!-- Top 10 countries with the highest number of airports -->
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <strong>Top 10 countries with the highest number of airprts</strong>
+                </li>
+                @for(h <- highest) {
+                          <li class="list-group-item">
+                            <span class="badge">@h._2</span>
+                            @h._1
+                          </li>
+                          }
+              </ul>
+            </div>
+          </div>
         </div>
+        <div class="col-xs-6">
+          
+          <div class="row" id="bottom10">
+            <div class="col-md-6">
+              <!-- Bottom 10 countries with the lowest number of airports -->
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <strong>Bottom 10 countries with the lowest number of airprts</strong>
+                </li>
+                @for(l <- lowest) {
+                          <li class="list-group-item">
+                            <span class="badge">@l._2</span>
+                            @l._1
+                          </li>
+                          }
+              </ul>
+            </div>
+          </div>
+
+        </div> 
       </div>
-      
-      <div class="row">
-        <div class="col-md-3">
-          <!-- Bottom 10 countries with the lowest number of airports -->
-          <ul class="list-group">
-            <li class="list-group-item">
-              <strong>Bottom 10</strong>
-            </li>
-            @for(l <- lowest) {
-                      <li class="list-group-item">
-                        <span class="badge">@l._2</span>
-                        @l._1
-                      </li>
-                      }
-          </ul>
-        </div>
-      </div>
-      
-    </div>
+
+        <!-- Display runway types per country -->
+
     
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-xs-1">Country</th>
+                <th class="col-xs-11">Types of runways</th>
+              </tr>
+              </thead>
+              <tbody>
+                @for(country <- countries) {
+                                <tr> <td>@country</td>              
+                                  <td>@for(runway <- runways.filter(_._1 == country)) {
+                                                     @runway._2
+                                                     }</td></tr>
+                                                     }
+                                                     </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
   </body>
 </html>
