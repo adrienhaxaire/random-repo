@@ -30,14 +30,21 @@
                              'class -> "form-control",
                              'autocomplete -> "on",
                              'placeholder -> "Enter a country name or code",
-                             '_label -> null)
+                             '_label -> null,
+                             'list -> "countries")
               }
+
+              <br/><br/>
+              
               <a href="@routes.ReportController.print" class="btn btn-lg btn-default">or check the report</a>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    @datalist_countries()
+
   </body>
 </html>
 
