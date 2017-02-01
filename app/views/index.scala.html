@@ -24,19 +24,16 @@
           <div class="inner cover">
             <h1 class="cover-heading">Look at a country's airports</h1>           
             <div class="lead">
-               @helper.form(action = routes.HomeController.query()) {
-               @helper.CSRF.formField
-               @helper.inputText(countryForm("code"), 
-                  'id -> "code",
-                  'class -> "ui-state-default",
-                  'autocomplete -> "onx",
-                  'placeholder -> "Country name or code",
-                  '_label -> null)}
-             </div>
-            <p class="lead">
-              <br/>
+              @helper.form(action = routes.HomeController.query()) {
+                           @helper.CSRF.formField
+                           @helper.inputText(countryForm("code"), 
+                             'class -> "form-control",
+                             'autocomplete -> "on",
+                             'placeholder -> "Enter a country name or code",
+                             '_label -> null)
+              }
               <a href="@routes.ReportController.print" class="btn btn-lg btn-default">or check the report</a>
-            </p>
+            </div>
           </div>
         </div>
       </div>
