@@ -1,12 +1,51 @@
 @(airports: List[Airport], runways: List[Runway])
 
-@main("Airports") {
-  <dl class="airports">
-    @for(airport <- airports) {
-      <dt>@airport.name (@airport.latitude, @airport.longitude)</dt>
-        @for(runway <- runways.filter(_.airport_ident == airport.ident)) {
-          <dd>@runway.le_ident, @runway.surface</dd>
-        }
-     }
-  </dl>
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" 
+          href="@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")">
+
+    <title>Airports</title>
+
+  </head>
+  <body>
+
+    <div class="container"> @for(airport <- airports) {
+                                            
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">@airport.name</div>
+        <div class="panel-body">
+              <p>@airport.category</p>
+              <p>@airport.latitude/@airport.longitude, @airport.elevation_ft</p>
+              <p>@airport.iso_country, @airport.iso_region, @airport.municipality</p>
+              <p>@airport.scheduled_service</p>
+              <p>@airport.gps_code @airport.iata_code @airport.local_code</p>
+
+        </div>
+    
+        
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-xs-3">Ident</th>
+              <th class="col-xs-3">Surface</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(runway <- runways.filter(_.airport_ident == airport.ident)) {
+                           <tr> <td>@runway.le_ident</td><td>@runway.surface</td></tr>
+                           }
+          </tbody>
+        </table>
+      </div>
+      }
+      
+    </div>
+
+  </body>
+</html>
