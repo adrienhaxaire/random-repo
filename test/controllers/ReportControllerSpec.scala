@@ -22,7 +22,7 @@ class ReportControllerSpec extends PlaySpec with OneAppPerTest {
       contentAsString(report) must include ("Country")
     }
 
-    "render the index page from the application" in {
+    "render the report page from the application" in {
       val controller = app.injector.instanceOf[ReportController]
       val report = controller.print().apply(FakeRequest())
 
