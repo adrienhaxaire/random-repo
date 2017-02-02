@@ -14,17 +14,20 @@ import models.Runway
 class ReportController @Inject() extends Controller {
 
   private def numberOfAirports(ordering: String): List[(String, Int)] = {
-    val sql: SqlQuery = SQL("""select count(iso_country) as cnt, countries.name from airports 
-                               inner join countries on airports.iso_country=countries.code 
-                               group by countries.name order by cnt """ + ordering + " limit 10;")
+    val sql: SqlQuery =
+      SQL("""select count(iso_country) as cnt, countries.name from airports
+             inner join countries on airports.iso_country=countries.code 
+             group by countries.name order by cnt """ + ordering + " limit 10;")
     DB.withConnection { implicit connection =>
-      sql().map(row => (row[String]("name"), row[Int]("cnt"))).toList}
+      sql().map(row => (row[String]("name"), row[Int]("cnt"))).toList
+    }
   }
 
   private def countryNames(): List[String] = {
     val sql: SqlQuery = SQL("select name from countries;")
     DB.withConnection { implicit connection =>
-      sql().map(row => row[String]("name")).toList}
+      sql().map(row => row[String]("name")).toList
+    }
   }
 
   private val runwayTypesParser: RowParser[(String, String)] = {
