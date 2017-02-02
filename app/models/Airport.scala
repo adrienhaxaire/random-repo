@@ -65,5 +65,14 @@ object Airport {
       sql.as(airportParser *)
     }
   }
+
+  def lastPage(isoCountry: String): Int = {
+    DB.withConnection { implicit connection =>
+      SQL("select count(*) / 50 +1 from airports where iso_country='" + "US" + "';").as(SqlParser.scalar[Int].single)
+    }
+  }
+
+
+
 }
 

@@ -1,0 +1,44 @@
+@(pages: (Int, Int))
+@current = @{pages._1}
+@previous = @{current - 1}
+@next = @{current + 1}
+@last = @{pages._2}
+
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+
+    @if(current == 1) {
+      <li class="active"> <a href="?page=@current">@current</a></li>
+      <li><a href="?page=@next">@next</a></li>
+      <li>
+        <a href="?page=@last" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      } else {
+        @if(current == last) {
+          <li>
+            <a href="?page=1" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li><a href="?page=@previous">@previous</a></li>
+          <li class="active"> <a href="?page=@current">@current</a></li>
+        } else {
+          <li>
+            <a href="?page=1" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li><a href="?page=@previous">@previous</a></li>
+          <li class="active"> <a href="?page=@current">@current</a></li>
+          <li><a href="?page=@next">@next</a></li>
+          <li>
+            <a href="?page=@last" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        }
+      }
+  </ul>
+</nav>

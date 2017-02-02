@@ -8,17 +8,18 @@ import models.Runway
 
 class AirportController @Inject() extends Controller {
 
-  def byIsoCountry(countryCode: String, page: Int) = Action { implicit request =>
+  def byIsoCountry(isoCountry: String, page: Int) = Action { implicit request =>
 
-    if (countryCode.toLowerCase == countryCode) {
+    if (isoCountry.toLowerCase == isoCountry) {
 
-      val airports = Airport.byIsoCountry(countryCode, page)
+      val airports = Airport.byIsoCountry(isoCountry, page)
       val runways = airports.map(airport => Runway.byIdent(airport.ident)).flatten
+      val lastPage = Airport.lastPage(isoCountry.toUpperCase)
 
-      Ok(views.html.airports(airports, runways))
+      Ok(views.html.airports(airports, runways, (page, lastPage)))
 
     } else {
-      Redirect(routes.AirportController.byIsoCountry(countryCode.toLowerCase))
+      Redirect(routes.AirportController.byIsoCountry(isoCountry.toLowerCase))
     }
   }
 

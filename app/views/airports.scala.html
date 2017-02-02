@@ -1,4 +1,4 @@
-@(airports: List[Airport], runways: List[Runway])
+@(airports: List[Airport], runways: List[Runway], pages: (Int, Int))
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,6 +93,8 @@
 
       </div>
       }
-      
+
+    @pagination(pages)
+
   </body>
 </html>
