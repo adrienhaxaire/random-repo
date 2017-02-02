@@ -18,17 +18,23 @@
                                             
       <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">@airport.name</div>
+        <div class="panel-heading">@airport.name (@airport.category)</div>
         <div class="panel-body">
-              <p>@airport.category</p>
-              <p>@airport.latitude/@airport.longitude, @airport.elevation_ft</p>
-              <p>@airport.iso_country, @airport.iso_region, @airport.municipality</p>
-              <p>@airport.scheduled_service</p>
-              <p>@airport.gps_code @airport.iata_code @airport.local_code</p>
-
+              <p>LAT/LONG: @airport.latitude / @airport.longitude</p>
+              @if(!airport.elevation_ft.isEmpty){<p>Elevation (ft): @airport.elevation_ft</p>}
+              @if(!airport.municipality.isEmpty){<p>Municipality: @airport.municipality</p>}
+              @if(!airport.iso_region.isEmpty){<p>Region: @airport.iso_region</p>}
+              @if(!airport.scheduled_service.isEmpty){<p>Scheduled service: @airport.scheduled_service</p>}
+              @if(!airport.gps_code.isEmpty){<p>GPS code: @airport.gps_code</p>}
+              @if(!airport.iata_code.isEmpty){<p>IATA code: @airport.iata_code</p>}
+              @if(!airport.local_code.isEmpty){<p>Local code: @airport.local_code</p>}
+              @if(!airport.home_link.isEmpty){<p>Website: <a href="@airport.home_link">@airport.home_link</a></p>}
+              @if(!airport.wikipedia_link.isEmpty){<p>Wikipedia: <a href="@airport.wikipedia_link">@airport.wikipedia_link</a></p>}
+              @if(!airport.keywords.isEmpty){<p>Keywords: @airport.keywords</p>}
         </div>
     
-        
+
+        @if(runways.filter(_.airport_ident == airport.ident).length > 1) { 
         <table class="table">
           <thead>
             <tr>
@@ -38,10 +44,15 @@
           </thead>
           <tbody>
             @for(runway <- runways.filter(_.airport_ident == airport.ident)) {
-                           <tr> <td>@runway.le_ident</td><td>@runway.surface</td></tr>
+                           <tr>
+                             <td>@runway.le_ident</td>
+                             <td>@runway.surface</td>
+
+                           </tr>
                            }
           </tbody>
         </table>
+        }
       </div>
       }
       
