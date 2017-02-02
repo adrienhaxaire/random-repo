@@ -17,7 +17,6 @@
     <div class="container"> @for(airport <- airports) {
                                             
       <div class="panel panel-default">
-        <!-- Default panel contents -->
         <div class="panel-heading">@airport.name (@airport.category)</div>
         <div class="panel-body">
               <p>LAT/LONG: @airport.latitude / @airport.longitude</p>
@@ -31,32 +30,70 @@
               @if(!airport.home_link.isEmpty){<p>Website: <a href="@airport.home_link">@airport.home_link</a></p>}
               @if(!airport.wikipedia_link.isEmpty){<p>Wikipedia: <a href="@airport.wikipedia_link">@airport.wikipedia_link</a></p>}
               @if(!airport.keywords.isEmpty){<p>Keywords: @airport.keywords</p>}
-        </div>
-    
 
-        @if(runways.filter(_.airport_ident == airport.ident).length > 1) { 
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="col-xs-3">Ident</th>
-              <th class="col-xs-3">Surface</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for(runway <- runways.filter(_.airport_ident == airport.ident)) {
-                           <tr>
-                             <td>@runway.le_ident</td>
-                             <td>@runway.surface</td>
+              @if(runways.filter(_.airport_ident == airport.ident).length > 1) { 
+              <div class="panel panel-default">
+                <div class="panel-heading">Runways (ft, deg)</div>
+                <div class="panel-body">
 
-                           </tr>
-                           }
-          </tbody>
-        </table>
-        }
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Surface</th>
+                        <th>Length</th>
+                        <th>Width</th>
+                        <th>Lighted</th>
+                        <th>Closed</th>
+            
+                        <th><strong>LE</strong></th>
+                        <th>Lat</th>
+                        <th>Long</th>
+                        <th>Elv</th>
+                        <th>Hd</th>
+                        <th>Thr</th>
+            
+                        <th><strong>HE</strong></th>
+                        <th>Lat</th>
+                        <th>Long</th>
+                        <th>Elv</th>
+                        <th>Hd</th>
+                        <th>Thr</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    @for(runway <- runways.filter(_.airport_ident == airport.ident)) {
+                    <tr>
+                      <td>@runway.surface</td>
+                      <td>@runway.length_ft</td>
+                      <td>@runway.width_ft</td>
+                      <td>@runway.lighted</td>
+                      <td>@runway.closed</td>
+            
+                      <td><strong>@runway.le_ident</strong></td>
+                      <td>@runway.le_latitude_deg</td>
+                      <td>@runway.le_longitude_deg</td>
+                      <td>@runway.le_elevation_ft</td>
+                      <td>@runway.le_heading_degT</td>
+                      <td>@runway.le_displaced_threshold_ft</td>
+            
+                      <td><strong>@runway.he_ident</strong></td>
+                      <td>@runway.he_latitude_deg</td>
+                      <td>@runway.he_longitude_deg</td>
+                      <td>@runway.he_elevation_ft</td>
+                      <td>@runway.he_heading_degT</td>
+                      <td>@runway.he_displaced_threshold_ft</td>
+                    </tr>
+                    }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              }
+
+           </div>
+
       </div>
       }
       
-    </div>
-
   </body>
 </html>
